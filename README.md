@@ -10,6 +10,6 @@ My goal is to make a GUI for making a server for Minetest (in Python). Not every
 * Make Buttons [In Progress]
 * Make Checks
 * Make Entries and Labels
-* Get home directory to import
+* Make GUI launch Minetest [DONE!]
 * Make it write the setting to minetest.conf
 * Add More To This List
