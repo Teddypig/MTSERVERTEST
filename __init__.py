@@ -3,27 +3,30 @@ import Tkinter as tk
 import os
 import sys
 import time
-from threading import Thread
+import subprocess
+
 
 os.path.expanduser("~")
 path = "~/minetest/bin/minetest"
 
-t = Thread(target = lambda: os.system(path))
+
 
 def start():
-    t.start()
+    serverprocess = subprocess.Popen(path)
     print "Server is live!"
 
+
 def kill():
-    t.kill()
     print "Server Shutting Down"
-    time.sleep(1)
-    sys.exit()
+    serverprocess.send.signal(signal_SIGINT) #as per Donillo's instruction
+    time.sleep(10)
 
 def restart():
-    "killall -9 minetest"
+    print "Server Restaring. Takes up to 30 seconds"
+    serverprocess.send.signal(signal_SIGINT) #as per Donillo's instruction
     time.sleep(5)
-    os.system(path)
+    serverprocess = subprocess.Popen(path)
+    print "Server Sucessfully Restarted"
 
 class Page(tk.Frame):
     def __init__(self, *args, **kwargs):
