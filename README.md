@@ -5,9 +5,9 @@ My goal is to make a GUI for making a server for Minetest (in Python). Not every
 
 ## TO-DO
 * Make a TO-DO list [In Progress]
-* Make window
-* Make tabs
-* Make Buttons
+* Make window [Done!]
+* Make tabs [Done!]
+* Make Buttons [In Progress]
 * Make Checks
 * Make Entries and Labels
 * Get home directory to import
