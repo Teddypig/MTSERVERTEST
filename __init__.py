@@ -1,32 +1,55 @@
 # -*- coding: utf-8 -*-
 import Tkinter as tk
 import os
-import sys
 import time
 import subprocess
+import signal
 
 
-os.path.expanduser("~")
-path = "~/minetest/bin/minetest"
+def save1():
+    pfile = open("./pfile.txt", "w")
+    pfile.write(pentry.get())
+    pfile.close()
 
+
+if os.path.exists("./pfile.txt") is False:
+    pwindow = tk.Toplevel()
+    pwindow.title("Path")
+    plabel = tk.Label(pwindow, text="Path to your Mietest executable")
+    pentry = tk.Entry(pwindow)
+    pbutton = tk.Button(pwindow, text="save", command=save1)
+    plabel.pack(side="left")
+    pentry.pack(side="left")
+    pbutton.pack(side="left")
+    pwindow.mainloop()
+
+
+with open("./pfile.txt", "r") as p:
+    path = p.readline()
 
 
 def start():
-    serverprocess = subprocess.Popen(path)
+    global serverprocess
+    serverprocess = subprocess.Popen([path])
     print "Server is live!"
 
 
-def kill():
-    print "Server Shutting Down"
-    serverprocess.send.signal(signal_SIGINT) #as per Donillo's instruction
-    time.sleep(10)
+def stop():
+    global serverprocess
+    if serverprocess is not None:
+        print "Server Shutting Down"
+        serverprocess.send_signal(signal.SIGINT)
+        serverprocess = None
+
 
 def restart():
     print "Server Restaring. Takes up to 30 seconds"
-    serverprocess.send.signal(signal_SIGINT) #as per Donillo's instruction
+    stop()
     time.sleep(5)
-    serverprocess = subprocess.Popen(path)
+    start()
+    time.sleep(5)
     print "Server Sucessfully Restarted"
+
 
 class Page(tk.Frame):
     def __init__(self, *args, **kwargs):
@@ -78,7 +101,7 @@ class MainView(tk.Frame):
         b3 = tk.Button(buttonframe, text="Terminal", command=lambda: p3.lift())
         b4 = tk.Button(self, text="Start", command=start)
         b5 = tk.Button(self, text="Restart", command=restart)
-        b6 = tk.Button(self, text="Shutdown", command=kill)
+        b6 = tk.Button(self, text="Shutdown", command=stop)
 
         b1.pack(side="left")
         b2.pack(side="left")
