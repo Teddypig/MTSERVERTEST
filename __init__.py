@@ -6,7 +6,7 @@ import subprocess
 import signal
 import tkMessageBox
 
-
+serverprocess = None
 
 
 
@@ -48,17 +48,15 @@ def stop():
     if serverprocess is not None:
         print "Server Shutting Down"
         serverprocess.send_signal(signal.SIGINT)
+        serverprocess.wait()
         serverprocess = None
 
 
 
 def restart():
-    global serverprocess
     print "Server Restaring. Takes up to 30 seconds"
     stop()
-    serverprocess.wait()
     start()
-    serverprocess.wait()
     print "Server Sucessfully Restarted"
 
 def confirm():
@@ -67,7 +65,10 @@ def confirm():
     confirm.title("Confirm")
     conlabel = tk.Label(confirm, text="Are you sure you want to restart your"
     " server?")
-    yes = tk.Button(confirm, text="Yes", command=restart)
+    def yes():
+        restart()
+        confirm.destroy
+    yes = tk.Button(confirm, text="Yes", command=yes)
     no = tk.Button(confirm, text="no", command=confirm.destroy)
     conlabel.pack()
     yes.pack()
@@ -140,7 +141,7 @@ class Page4(Page):
         cnbutton.pack(side="left")
         tex = tk.Text(self)
         tex.config(state="disabled")
-        def send():
+        def send(event=None):
             tex.config(state="normal")
             tex.insert(tk.END, chat.get() + "\n")
             tex.see(tk.END)
@@ -151,7 +152,7 @@ class Page4(Page):
         chat.pack()
         cbutton = tk.Button(self, text="Send", command=send)
         cbutton.pack()
-        chat.bind("<Return>", send())
+        chat.bind("<Return>", send)
 
 class Page5(Page):
     def __init__(self, *args, **kwargs):
