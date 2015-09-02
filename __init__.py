@@ -7,6 +7,9 @@ import signal
 import tkMessageBox
 
 
+
+
+
 def save1():
     pfile = open("./pfile.txt", "w")
     pfile.write(pentry.get())
@@ -30,7 +33,7 @@ with open("./pfile.txt", "rw") as p:
     path = p.readline()
 
 
-#def send():
+
 
 
 def start():
@@ -60,6 +63,7 @@ def restart():
 
 def confirm():
     confirm = tk.Toplevel()
+    confirm.wm_geometry("400x100")
     confirm.title("Confirm")
     conlabel = tk.Label(confirm, text="Are you sure you want to restart your"
     " server?")
@@ -74,8 +78,6 @@ def confirm():
 class Page(tk.Frame):
     def __init__(self, *args, **kwargs):
         tk.Frame.__init__(self, *args, **kwargs)
-
-
 
 
     def show(self):
@@ -136,8 +138,19 @@ class Page4(Page):
         cname.pack(side="left")
         cnbutton = tk.Button(self, text="Save")
         cnbutton.pack(side="left")
-
-
+        tex = tk.Text(self)
+        tex.config(state="disabled")
+        def send():
+            tex.config(state="normal")
+            tex.insert(tk.END, chat.get() + "\n")
+            tex.see(tk.END)
+            chat.delete(0, "end")
+            tex.config(state="disabled")
+        tex.pack()
+        chat = tk.Entry(self)
+        chat.pack()
+        cbutton = tk.Button(self, text="Send", command=send)
+        cbutton.pack()
 
 class Page5(Page):
     def __init__(self, *args, **kwargs):
