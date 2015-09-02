@@ -151,6 +151,7 @@ class Page4(Page):
         chat.pack()
         cbutton = tk.Button(self, text="Send", command=send)
         cbutton.pack()
+        chat.bind("<Return>", send())
 
 class Page5(Page):
     def __init__(self, *args, **kwargs):
