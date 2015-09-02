@@ -4,6 +4,7 @@ import os
 import time
 import subprocess
 import signal
+import tkMessageBox
 
 
 def save1():
@@ -51,19 +52,23 @@ def stop():
 def restart():
     global serverprocess
     print "Server Restaring. Takes up to 30 seconds"
-stop()
-serverprocess.wait()
-start()
-serverprocess.wait()
-print "Server Sucessfully Restarted"
+    stop()
+    serverprocess.wait()
+    start()
+    serverprocess.wait()
+    print "Server Sucessfully Restarted"
 
 def confirm():
-    confirm = tk.Messagebox("Are you sure you want to restart"
-    " your server?")
+    confirm = tk.Toplevel()
+    confirm.title("Confirm")
+    conlabel = tk.Label(confirm, text="Are you sure you want to restart your"
+    " server?")
     yes = tk.Button(confirm, text="Yes", command=restart)
-    no = tk.Button(confirm, text="No", command=confirm.destroy)
+    no = tk.Button(confirm, text="no", command=confirm.destroy)
+    conlabel.pack()
     yes.pack()
     no.pack()
+
 
 
 class Page(tk.Frame):
