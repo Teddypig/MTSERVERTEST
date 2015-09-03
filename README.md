@@ -8,10 +8,12 @@ My goal is to make a GUI for making a server for Minetest (in Python). Not every
 * Get user's executable path [DONE!]
 * Make window [Done!]
 * Make tabs [Done!]
-* Make Buttons [90%]
-* Make Checks
-* Make Entries and Labels
+* Make Buttons [60%]
+* Make Checks [Working on it]
+* Make Entries and Labels [50%]
 * Make GUI launch Minetest [DONE!]
 * Make it launch, shutdown, and restart Minetest [DONE!]
-* Make it write the setting to minetest.conf
-* Add More To This List
+* Make it write the setting to minetest.conf [Easy, but not needed yet]
+* Get Console to Game chat working [This will take a while]
+* Add in-game commands []
+* Add More To This List [This shit's never ending...]
